@@ -1,20 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>The Dance Station</title>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
+<head>
+  <meta charset="utf-8" />
+  <title>The Dance Station – Program</title>
+
+  <!-- Proper mobile layout -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #111;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .pdf-frame {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .fallback {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 1rem;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .fallback a {
+      color: #4da3ff;
+    }
+  </style>
+
+  <script>
+    (function () {
+      var pdfUrl = "https://rocket-marketing.nyc3.cdn.digitaloceanspaces.com/tdsprogram/program2026.pdf";
+
+      // Very simple iOS Safari detection
+      var ua = navigator.userAgent || navigator.vendor || window.opera;
+      var isIOS = /iPad|iPhone|iPod/.test(ua) || 
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      var isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+
+      // On iOS Safari, let the browser open the PDF natively (best UX)
+      if (isIOS && isSafari) {
+        window.location.replace(pdfUrl);
       }
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-      }
-    </style>
-  </head>
-  <body>
-    <iframe src="https://rocket-marketing.nyc3.cdn.digitaloceanspaces.com/tdsprogram/program2026.pdf"></iframe>
-  </body>
+
+      // Otherwise, we leave the iframe to render below.
+    })();
+  </script>
+</head>
+<body>
+  <!-- Embedded viewer for desktop / non-iOS Safari -->
+  <iframe
+    class="pdf-frame"
+    src="https://rocket-marketing.nyc3.cdn.digitaloceanspaces.com/tdsprogram/program2026.pdf"
+  ></iframe>
+
+  <!-- Fallback if iframe/PDF can’t render -->
+  <div class="fallback">
+    <p>If the program doesn’t display, you can open it directly:</p>
+    <p>
+      <a href="https://rocket-marketing.nyc3.cdn.digitaloceanspaces.com/tdsprogram/program2026.pdf">
+        Open the program PDF
+      </a>
+    </p>
+  </div>
+</body>
 </html>
